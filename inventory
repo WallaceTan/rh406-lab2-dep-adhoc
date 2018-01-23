@@ -1,0 +1,9 @@
+[myself]
+localhost
+
+[web]
+servera
+
+[everyone:children]
+myself
+web

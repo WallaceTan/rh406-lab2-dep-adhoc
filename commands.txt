@@ -1,0 +1,30 @@
+ansible everyone -m ping
+ansible localhost -m command -a id
+ansible localhost -m command -a id -u devops
+ansible localhost -m command -a 'cat /etc/motd' -u devops
+
+$ ansible localhost -m copy -a 'content="Managed by Ansible\n" dest=/etc/motd' -u devops
+localhost | FAILED! => {
+    "changed": false, 
+    "checksum": "4458b979ede3c332f8f2128385df4ba305e58c27", 
+    "failed": true, 
+    "msg": "Destination /etc not writable"
+}
+
+[student@workstation dep-adhoc]$ ansible localhost -m copy -a 'content="Managed by Ansible\n" dest=/etc/motd' -u devops -b
+localhost | SUCCESS => {
+    "changed": true, 
+    "checksum": "4458b979ede3c332f8f2128385df4ba305e58c27", 
+    "dest": "/etc/motd", 
+    "gid": 0, 
+    "group": "root", 
+    "md5sum": "65a4290ee5559756ad04e558b0e0c4e3", 
+    "mode": "0644", 
+    "owner": "root", 
+    "secontext": "system_u:object_r:etc_t:s0", 
+    "size": 19, 
+    "src": "/home/devops/.ansible/tmp/ansible-tmp-1516696517.97-158439936013827/source", 
+    "state": "file", 
+    "uid": 0
+}
+
